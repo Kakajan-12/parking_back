@@ -9,5 +9,9 @@
 *.pdf
 
 /tmp
-/docs
+# /docs
 /image
+
+.env
+.idea
+.vscode
