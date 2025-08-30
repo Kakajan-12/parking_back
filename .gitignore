@@ -1,0 +1,13 @@
+*.exe
+*.out
+*.o
+*.jpg
+*.png
+*.log
+*.tmp
+*.docs
+*.pdf
+
+/tmp
+/docs
+/image
