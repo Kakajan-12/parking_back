@@ -1,17 +1,41 @@
+# Binaries and compiled files
 *.exe
 *.out
 *.o
-*.jpg
-*.png
+
+# Logs, temp files, cache
 *.log
 *.tmp
-*.docs
+
+# Images, documents
+*.jpg
+*.png
 *.pdf
+*.docs
 
+# OS files
+.DS_Store
+Thumbs.db
+
+# Directories
 /tmp
-# /docs
-/image
+/vendor/
 
-.env
-.idea
-.vscode
+# IDE / Editor configs
+.idea/
+.vscode/
+
+# Environment files
+.env*
+!.env.example
+
+# Certificates / Keys
+*.pem
+*.key
+*.crt
+
+# Optional: ignore docs and images if generated
+/media
+
+# atlas migration tool files
+atlas.hcl

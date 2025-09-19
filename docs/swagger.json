@@ -1,335 +1,27 @@
 {
+    "schemes": [
+        "http"
+    ],
     "swagger": "2.0",
     "info": {
-        "title": "Airline REST API",
-        "contact": {}
+        "description": "This is a sample Fiber API with OAuth2 password flow",
+        "title": "Openapi spec",
+        "termsOfService": "http://example.com/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.example.com/support",
+            "email": "support@example.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "0.1.0"
     },
-    "host": "127.0.0.1:3000",
     "basePath": "/",
     "paths": {
-        "/api/v1/accountant/calculateMoney": {
-            "get": {
-                "description": "Fetch cars that are within the specified time range. 2025-01-29 13:07:31 2025-01-29 14:09:19",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Accountant"
-                ],
-                "summary": "Calculate cars based on start and end time",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "example": "\"2025-01-29 10:13:51\"",
-                        "description": "Start Time",
-                        "name": "start",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "example": "\"2025-01-29 12:15:10\"",
-                        "description": "End Time",
-                        "name": "end",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of cars",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/modelscar.Car_Model"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/accountant/operators": {
-            "get": {
-                "description": "Retrieve a list of operators with pagination support",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Accountant"
-                ],
-                "summary": "Get all operators with pagination",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "default": 1,
-                        "description": "Page number",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 10,
-                        "description": "Limit per page",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/modeloperator.Operator"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/accountant/search_car": {
-            "get": {
-                "description": "Retrieves cars from the database that match the given plate number with pagination.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Tarif"
-                ],
-                "summary": "Search for cars by plate number",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Car plate number to search for",
-                        "name": "car_number",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 1,
-                        "description": "Page number",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 5,
-                        "description": "Number of items per page",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of matching cars with pagination",
-                        "schema": {
-                            "$ref": "#/definitions/tarifcontrol.PaginatedResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/accountant/tarif": {
-            "get": {
-                "description": "Retrieves all tarifs from the database with pagination support.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Tarif"
-                ],
-                "summary": "Get all Tarifs with pagination",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "default": 1,
-                        "description": "Page number",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 10,
-                        "description": "Number of items per page",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of tarifs",
-                        "schema": {
-                            "$ref": "#/definitions/tarifcontrol.PaginatedResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Database error",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    }
-                }
-            },
+        "/api/v1/auth/login/": {
             "post": {
-                "description": "Creates a new tarif and saves it to the database.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Tarif"
-                ],
-                "summary": "Create a New Tarif",
-                "parameters": [
-                    {
-                        "description": "Tarif details to be created",
-                        "name": "tarif",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/tarif.Tarif"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully created",
-                        "schema": {
-                            "$ref": "#/definitions/tarif.Tarif"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid request data",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Failed to save data to the database",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/accountant/tarif/{id}": {
-            "delete": {
-                "description": "Deletes a tarif by its ID.",
-                "tags": [
-                    "Tarif"
-                ],
-                "summary": "Delete Tarif",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "ID of the tarif to delete",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Tarif successfully deleted",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID format",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Tarif not found",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Database error",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/addcam": {
-            "post": {
-                "description": "Creates a new cam and saves it to the database.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CamFix"
-                ],
-                "summary": "Create a New CamFix",
-                "parameters": [
-                    {
-                        "description": "Cam details to be created",
-                        "name": "cam",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/camera.CamFix"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Successfully created",
-                        "schema": {
-                            "$ref": "#/definitions/camera.CamFix"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid data",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.Response"
-                        }
-                    },
-                    "409": {
-                        "description": "Camera already exists",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.Response"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/auth/login": {
-            "post": {
-                "description": "{ \"username\": \"Dowran\", \"password\": \"12345678\", \"parkno\": \"P4\" }",
                 "consumes": [
                     "application/json"
                 ],
@@ -339,60 +31,61 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Login User",
+                "summary": "User login",
                 "parameters": [
                     {
                         "description": "User Login Data",
-                        "name": "credentials",
+                        "name": "requestBody",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/usercontrol.LoginInput"
+                            "$ref": "#/definitions/LoginInput"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "message: Login successful",
+                        "description": "Login successful",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/LoginResponse"
                         }
                     },
                     "400": {
-                        "description": "message: Invalid request body",
+                        "description": "Invalid request body",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/BadRequestResponse"
                         }
                     },
                     "401": {
-                        "description": "message: Invalid username or password",
+                        "description": "detail: Unauthorized - Invalid token",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
                         }
                     },
                     "500": {
-                        "description": "message: Internal Server Error",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/auth/logout": {
-            "post": {
+        "/api/v1/auth/logout/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
                 "description": "Ends the session of a logged-in user by deleting the JWT token cookie.",
                 "produces": [
                     "application/json"
@@ -405,26 +98,33 @@
                     "200": {
                         "description": "message: Logout successful",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/MessagedResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
                         }
                     },
                     "500": {
-                        "description": "message: Internal Server Error",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/auth/me": {
+        "/api/v1/auth/me/": {
             "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
                 "description": "Retrieves the current user's username, role, and user ID from the JWT token.",
                 "consumes": [
                     "application/json"
@@ -435,328 +135,75 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Get current user information",
                 "responses": {
                     "200": {
-                        "description": "Returns user information",
+                        "description": "detail: Returns user session information",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "message: Bad Request - Missing data from middleware",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/UserSessionExtendedResponse"
                         }
                     },
                     "401": {
-                        "description": "message: Unauthorized - Invalid token",
+                        "description": "detail: Unauthorized - Invalid token",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     },
                     "500": {
-                        "description": "message: Internal Server Error - Missing data from middleware",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/ErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/auth/register": {
-            "post": {
-                "description": "Creates a new user and stores their hashed password. Example: { \"username\": \"newUser\", \"password\": \"password123\", \"firstname\": \"John\", \"lastname\": \"Doe\", \"role\": \"admin\" }",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Register User",
-                "parameters": [
-                    {
-                        "description": "User Registration Data",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/modelsuser.User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "message: User Created",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "message: Password must be at least 8 characters long",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "message: Internal Server Error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/camera/getdata": {
-            "put": {
-                "description": "{\"EventComment\": \"BE5084AG\", \"ChannelId\": \"8dc9685f-a80b-4d95-ae19-da340efe89ab\", \"ChannelName\": \"P4-6\"}",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Car Entry"
-                ],
-                "summary": "Create a car exit record in the parking lot",
-                "parameters": [
-                    {
-                        "description": "Captured data from the camera",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/camera.CapturedEventData"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Car exit updated successfully",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request, car already exited",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Car not found",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error, failed to update data",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "{\"EventComment\": \"BE5084AG\", \"ChannelId\": \"8dc9685f-a80b-4d95-ae19-da340efe89ab\", \"ChannelName\": \"P4-6\"}",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Car Entry"
-                ],
-                "summary": "Create a new car entry in the parking lot",
-                "parameters": [
-                    {
-                        "description": "Captured data from the camera",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/camera.CapturedEventData"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Car entry created successfully",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request, car is already inside",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error, failed to save data",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/camera/getdata/nows": {
-            "put": {
-                "description": "{\"ChannelName\": \"P3-2\",\"EventComment\": \"BE5084AG\",\"ChannelId\": \"d9b8389a-0727-43d8-afef-c6c937b7f320\"}",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Car Entry"
-                ],
-                "summary": "Create a car exit record in the parking lot",
-                "parameters": [
-                    {
-                        "description": "Captured data from the camera",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/camera.CapturedEventData"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Car exit updated successfully",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request, car already exited",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Car not found",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error, failed to update data",
-                        "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/camera/updatecar/{plate}": {
-            "put": {
-                "description": "Updates a car's status and calculates payment and duration based on start and end times.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "cars"
-                ],
-                "summary": "Update a car by plate number",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Car plate number",
-                        "name": "plate",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Car details to update",
-                        "name": "car",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/modelscar.CarUpdate"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Updated car details",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "400": {
-                        "description": "Car already exited or invalid request",
-                        "schema": {
-                            "$ref": "#/definitions/operator.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Car not found",
-                        "schema": {
-                            "$ref": "#/definitions/operator.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Error parsing time",
-                        "schema": {
-                            "$ref": "#/definitions/operator.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/cameras": {
+        "/api/v1/camera/": {
             "get": {
-                "description": "Retrieves a list of cameras from the database with pagination",
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a list of cameras with pagination support",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "Cameras"
                 ],
-                "summary": "Get cameras with pagination",
+                "summary": "Retrieves lists cameras with optional search, type, and pagination",
                 "parameters": [
                     {
                         "type": "integer",
-                        "default": 1,
                         "description": "Page number",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "default": 10,
-                        "description": "Number of items per page",
+                        "description": "Limit per page",
                         "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "inside",
+                            "outside"
+                        ],
+                        "type": "string",
+                        "description": "Camera type",
+                        "name": "type",
                         "in": "query"
                     }
                 ],
@@ -764,19 +211,40 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/camera.Cameras"
+                            "$ref": "#/definitions/CameraPaginatedResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
                         }
                     },
                     "500": {
-                        "description": "Internal server error",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
-            },
-            "post": {
-                "description": "Creates a new camera in the database with validation for camera type",
+            }
+        },
+        "/api/v1/camera/count/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a count of cameras",
                 "consumes": [
                     "application/json"
                 ],
@@ -786,15 +254,81 @@
                 "tags": [
                     "Cameras"
                 ],
-                "summary": "Create a new camera",
+                "summary": "Count returns total cameras count",
                 "parameters": [
                     {
-                        "description": "Camera data",
-                        "name": "camera",
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "inside",
+                            "outside"
+                        ],
+                        "type": "string",
+                        "description": "Camera type",
+                        "name": "type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "count: 12345",
+                        "schema": {
+                            "$ref": "#/definitions/CountResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/camera/create/": {
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Creates new camera",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cameras"
+                ],
+                "summary": "Creates a new camera",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "requestBody",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/camera.Cameras"
+                            "$ref": "#/definitions/CameraCreateInput"
                         }
                     }
                 ],
@@ -802,128 +336,60 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/camera.Cameras"
+                            "$ref": "#/definitions/CameraMessageResponse"
                         }
                     },
-                    "400": {
-                        "description": "Invalid camera type",
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
                         }
                     },
                     "500": {
-                        "description": "Internal server error",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/cameras/{id}": {
-            "get": {
-                "description": "Retrieves the camera from the database using its unique ID",
-                "tags": [
-                    "Cameras"
-                ],
-                "summary": "Get a camera by ID",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Camera ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/camera.Cameras"
-                        }
-                    },
-                    "404": {
-                        "description": "Camera not found",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Updates the camera data in the database using its unique ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Cameras"
-                ],
-                "summary": "Update a camera by ID",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Camera ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Updated camera data",
-                        "name": "camera",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/camera.Cameras"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/camera.Cameras"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid camera data",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "404": {
-                        "description": "Camera not found",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
+        "/api/v1/camera/{id}/delete/": {
             "delete": {
-                "description": "Deletes the camera from the database using its unique ID",
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Deletes a camera by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "Cameras"
                 ],
-                "summary": "Delete a camera by ID",
+                "summary": "Deletes a camera",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Camera ID",
+                        "description": "Camera ID (int)",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -931,118 +397,54 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Camera deleted successfully",
+                        "description": "User deleted successfully",
                         "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "404": {
-                        "description": "Camera not found",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/deletecam/{id}": {
-            "delete": {
-                "description": "Deletes a camera from the database using its ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CamFix"
-                ],
-                "summary": "Delete a CamFix by ID",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "ID of the camera to delete",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully deleted",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.Response"
-                        }
-                    },
-                    "404": {
-                        "description": "Camera not found",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.Response"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.Response"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/getallcars": {
-            "get": {
-                "description": "Get list of cars with pagination",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "cars"
-                ],
-                "summary": "Get list of cars",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "default": 1,
-                        "description": "Page number",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 5,
-                        "description": "Number of items per page",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/operator.GetCarsResponse"
+                            "$ref": "#/definitions/UserMessageResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/operator.ErrorResponse"
+                            "$ref": "#/definitions/BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFoundResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/getcar/{id}": {
+        "/api/v1/camera/{id}/detail/": {
             "get": {
-                "description": "Get a car by ID",
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieve single camera detail",
                 "consumes": [
                     "application/json"
                 ],
@@ -1050,13 +452,13 @@
                     "application/json"
                 ],
                 "tags": [
-                    "cars"
+                    "Cameras"
                 ],
-                "summary": "Get a car by ID",
+                "summary": "Retrieve single camera",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Car ID",
+                        "description": "Camera ID (int)",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1066,112 +468,40 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/modelscar.Car_Model"
+                            "$ref": "#/definitions/CameraResponse"
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
                         "schema": {
-                            "$ref": "#/definitions/operator.ErrorResponse"
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/searchcar": {
-            "get": {
-                "description": "Retrieve a paginated list of cars with optional filtering by car number, enter time range, end time range, park number, and status.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "cars"
-                ],
-                "summary": "Search for cars",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Filter by car plate number (partial match allowed)",
-                        "name": "car_number",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Start of enter time range (YYYY-MM-DD)",
-                        "name": "enter_time",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "End of end time range (YYYY-MM-DD)",
-                        "name": "end_time",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Filter by parking spot number",
-                        "name": "parkno",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Filter by car status (Inside, Exited)",
-                        "name": "status",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 1,
-                        "description": "Page number",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 5,
-                        "description": "Number of items per page",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/operator.GetCarsResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/operator.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/sync-camfix": {
-            "get": {
-                "description": "Fetches data from config endpoint and synchronizes CamFix records: creates new ones, updates existing ones, and deletes obsolete ones.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CamFix"
-                ],
-                "summary": "Sync CamFix records with config data",
-                "responses": {}
-            }
-        },
-        "/api/v1/type/{id}": {
+        "/api/v1/camera/{id}/update/": {
             "patch": {
-                "description": "Update only the Type of a camera by its ID",
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Updates an existing camera",
                 "consumes": [
                     "application/json"
                 ],
@@ -1179,196 +509,82 @@
                     "application/json"
                 ],
                 "tags": [
-                    "CamFix"
+                    "Cameras"
                 ],
-                "summary": "Update Camera Type",
+                "summary": "Update a camera",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Camera ID",
+                        "description": "Camera ID (int)",
                         "name": "id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "New camera type",
-                        "name": "body",
+                        "description": "Request data",
+                        "name": "requestBody",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/camfix.UpdateCameraTypeRequest"
+                            "$ref": "#/definitions/CameraUpdateInput"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/camera.CamFix"
-                        }
-                    },
-                    "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/camfix.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/update-channel-ids": {
-            "put": {
-                "description": "Updates ChannelId for all CamFix records matching the provided ChannelName(s).",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CamFix"
-                ],
-                "summary": "Update ChannelIds by ChannelName",
-                "parameters": [
-                    {
-                        "description": "List of ChannelName and ChannelId pairs to update",
-                        "name": "updates",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "additionalProperties": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {}
-            }
-        },
-        "/api/v1/update/count": {
-            "get": {
-                "description": "Provides real-time updates of parking counts via WebSocket",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Establish WebSocket connection for parking counts",
-                "responses": {
-                    "101": {
-                        "description": "WebSocket upgrade"
-                    }
-                }
-            },
-            "put": {
-                "description": "Adds the provided total to the existing count for the specified park number",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Update the count value for a specific parking number",
-                "parameters": [
-                    {
-                        "description": "Total value to add and park number",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/realtime.UpdateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Updated total value and park number",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/CameraMessageResponse"
                         }
                     },
                     "400": {
-                        "description": "Error message",
+                        "description": "detail: BadRequest - invalid request",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/updatemac": {
-            "put": {
-                "description": "Update an existing MacUser's details such as MacUsername and MacPassword",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CamFix"
-                ],
-                "summary": "Update an existing MacUser",
-                "parameters": [
-                    {
-                        "description": "MacUser object",
-                        "name": "macuser",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/modelsuser.MacUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/camfix.SuccessResponse"
+                            "$ref": "#/definitions/BadRequestResponse"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
                         "schema": {
-                            "$ref": "#/definitions/camfix.ErrorResponse"
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "detail: User not found",
                         "schema": {
-                            "$ref": "#/definitions/camfix.ErrorResponse"
+                            "$ref": "#/definitions/NotFoundResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/camfix.ErrorResponse"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/user/operators": {
+        "/api/v1/car-session/": {
             "get": {
-                "description": "Retrieves a list of users who have the role \"operator\" in descending order by ID",
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -1376,76 +592,8 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Users"
+                    "Cars"
                 ],
-                "summary": "Get all operators",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "default": 1,
-                        "description": "Page number",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "default": 10,
-                        "description": "Number of items per page",
-                        "name": "limit",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of operators with pagination metadata",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "404": {
-                        "description": "No operators found",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "500": {
-                        "description": "Error retrieving users with operator role",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/userCount": {
-            "get": {
-                "description": "Retrieves the count of all users and optionally filtered by role",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users Count"
-                ],
-                "summary": "Get total number of users and the count of users by role",
-                "responses": {}
-            }
-        },
-        "/api/v1/users": {
-            "get": {
-                "description": "Retrieves a list of users with pagination support",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get all users",
                 "parameters": [
                     {
                         "type": "integer",
@@ -1464,20 +612,734 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/CarSessionPaginatedResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
                         }
                     },
                     "500": {
-                        "description": "Can not retrieve users",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/v1/car-session/count/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a count of cars",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Count returns total cars count",
+                "responses": {
+                    "200": {
+                        "description": "count: 12345",
+                        "schema": {
+                            "$ref": "#/definitions/CountResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a list of cars with pagination support",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Retrieves lists cars with optional search, type, and pagination",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit per page",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CarPaginatedResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car/count/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a count of cars",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Count returns total cars count",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "count: 12345",
+                        "schema": {
+                            "$ref": "#/definitions/CountResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car/create/": {
             "post": {
-                "description": "Creates a new user in the database",
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Creates new car",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Creates a new car",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CarCreateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/CarMessageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car/{id}/detail/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieve single car detail",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Retrieve single car",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Car ID (int)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/CarResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car/{id}/update/": {
+            "patch": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Updates an existing car",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Update a car",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Car ID (int)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Request data",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CarUpdateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/CarMessageResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "detail: BadRequest - invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "detail: User not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFoundResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tariff/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a list of tariffs with pagination support",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tariffs"
+                ],
+                "summary": "Retrieves lists tariffs with optional search, type, and pagination",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit per page",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TariffPaginatedResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tariff/count/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a count of tariffs",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tariffs"
+                ],
+                "summary": "Count returns total tariffs count",
+                "responses": {
+                    "200": {
+                        "description": "count: 12345",
+                        "schema": {
+                            "$ref": "#/definitions/CountResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tariff/create/": {
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Creates new car",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tariffs"
+                ],
+                "summary": "Creates a new car",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TariffCreateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/TariffMessageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tariff/{id}/detail/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieve single tariff detail",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tariffs"
+                ],
+                "summary": "Retrieve single tariff",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Tariff ID (int)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/TariffResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tariff/{id}/update/": {
+            "patch": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Updates an existing tariff",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tariffs"
+                ],
+                "summary": "Update a tariff",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Tariff ID (int)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Request data",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TariffUpdateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/TariffMessageResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "detail: BadRequest - invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "detail: User not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFoundResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user-session/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a list of users with pagination support",
                 "consumes": [
                     "application/json"
                 ],
@@ -1487,54 +1349,79 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Create a new user",
+                "summary": "Retrieves all users with pagination",
                 "parameters": [
                     {
-                        "description": "User data",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/modelsuser.User"
-                        }
+                        "type": "integer",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit per page",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID (UUID)",
+                        "name": "user_id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/modelsuser.User"
+                            "$ref": "#/definitions/UserSessionExtendedPaginatedResponse"
                         }
                     },
-                    "400": {
-                        "description": "Can not parse",
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
                         }
                     },
                     "500": {
-                        "description": "Can not create",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/api/v1/users/{id}": {
+        "/api/v1/user-session/{id}/detail/": {
             "get": {
-                "description": "Retrieves a user from the database using their unique ID",
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieve single user session",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get user by ID",
+                "summary": "Retrieve single user session",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "User ID",
+                        "type": "string",
+                        "description": "User session ID (UUID)",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1544,78 +1431,312 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/modelsuser.UserRes"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Updates a user's data (isActive, username, firstname, lastname, etc.) in the database based on the input provided",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Update user fields based on the provided data",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "User ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "User data to update",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/modelsuser.User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/modelsuser.UserRes"
+                            "$ref": "#/definitions/UserSessionExtendedResponse"
                         }
                     },
-                    "400": {
-                        "description": "Invalid user data",
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/UnauthorizedResponse"
                         }
                     },
-                    "404": {
-                        "description": "User not found",
+                    "403": {
+                        "description": "detail: Permission denied",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/PermissionDeniedResponse"
                         }
                     },
                     "500": {
-                        "description": "Error updating user",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
-            },
-            "delete": {
-                "description": "Deletes a user's information from the database using their unique ID",
+            }
+        },
+        "/api/v1/user-session/{id}/revoke/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a list of users with pagination support",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Users"
                 ],
-                "summary": "Delete a user by ID",
+                "summary": "Retrieves all user sessions with pagination",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User session ID (UUID)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/MessagedResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a list of users with pagination support",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Retrieves all users with pagination",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "User ID",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit per page",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "User activity",
+                        "name": "is_active",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UserPaginatedResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/count/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieves a count of users",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Count all users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search term",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "User activity",
+                        "name": "is_active",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "count: 12345",
+                        "schema": {
+                            "$ref": "#/definitions/CountResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/create/": {
+            "post": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Creates new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create and response new user",
+                "parameters": [
+                    {
+                        "description": "User create Data",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserCreateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/UserMessageResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/{id}/delete/": {
+            "delete": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Deletes a user by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID (UUID)",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1625,27 +1746,52 @@
                     "200": {
                         "description": "User deleted successfully",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/UserMessageResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
                         }
                     },
                     "404": {
                         "description": "User not found",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/NotFoundResponse"
                         }
                     },
                     "500": {
-                        "description": "Error deleting user",
+                        "description": "Internal Server Error",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
             }
         },
-        "/zreport": {
-            "post": {
-                "description": "Creates a new Report and saves it to the database.",
+        "/api/v1/user/{id}/detail/": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Retrieve single user detail",
                 "consumes": [
                     "application/json"
                 ],
@@ -1653,37 +1799,125 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Zreport"
+                    "Users"
                 ],
-                "summary": "Create a New Tarif",
+                "summary": "Retrieve single user",
                 "parameters": [
                     {
-                        "description": "Tarif details to be created",
-                        "name": "tarif",
+                        "type": "string",
+                        "description": "User ID (UUID)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/UserResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/user/{id}/update/": {
+            "patch": {
+                "security": [
+                    {
+                        "OAuth2Password": [
+                            ""
+                        ]
+                    }
+                ],
+                "description": "Updates user data by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID (UUID)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User update Data",
+                        "name": "requestBody",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/zreport.ZReport"
+                            "$ref": "#/definitions/UserUpdateInput"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Successfully created",
+                    "200": {
+                        "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/zreport.ZReport"
+                            "$ref": "#/definitions/UserMessageResponse"
                         }
                     },
                     "400": {
-                        "description": "Invalid request data",
+                        "description": "detail: BadRequest - invalid request",
                         "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
+                            "$ref": "#/definitions/BadRequestResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "detail: Unauthorized - Invalid token",
+                        "schema": {
+                            "$ref": "#/definitions/UnauthorizedResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "detail: Permission denied",
+                        "schema": {
+                            "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "detail: User not found",
+                        "schema": {
+                            "$ref": "#/definitions/NotFoundResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "detail: Validation errors",
+                        "schema": {
+                            "$ref": "#/definitions/ValidationErrorResponse"
                         }
                     },
                     "500": {
-                        "description": "Failed to save data to the database",
+                        "description": "detail: Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/resmodel.ErrorResponse"
+                            "$ref": "#/definitions/InternalServerErrorResponse"
                         }
                     }
                 }
@@ -1691,37 +1925,90 @@
         }
     },
     "definitions": {
-        "camera.CamFix": {
+        "BadRequestResponse": {
             "type": "object",
             "properties": {
-                "ChannelId": {
-                    "type": "string"
-                },
-                "ChannelName": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "type": {
-                    "$ref": "#/definitions/camera.CameraType"
+                "detail": {
+                    "type": "string",
+                    "example": "BadRequest - invalid request"
                 }
             }
         },
-        "camera.CameraType": {
-            "type": "string",
-            "enum": [
-                "inside",
-                "outside"
+        "CameraCreateInput": {
+            "type": "object",
+            "required": [
+                "name",
+                "type"
             ],
-            "x-enum-varnames": [
-                "Inside",
-                "Outside"
-            ]
+            "properties": {
+                "channelName": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "channelToken": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "type": {
+                    "$ref": "#/definitions/CameraType"
+                }
+            }
         },
-        "camera.Cameras": {
+        "CameraMessageResponse": {
             "type": "object",
             "properties": {
+                "data": {
+                    "$ref": "#/definitions/CameraResponse"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "CameraPaginatedResponse": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page",
+                "rows"
+            ],
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CameraResponse"
+                    }
+                }
+            }
+        },
+        "CameraResponse": {
+            "type": "object",
+            "required": [
+                "createdAt",
+                "id",
+                "name",
+                "type"
+            ],
+            "properties": {
+                "channelName;": {
+                    "type": "string"
+                },
+                "channelToken;": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
@@ -1729,164 +2016,358 @@
                     "type": "string"
                 },
                 "type": {
-                    "$ref": "#/definitions/camera.CameraType"
+                    "$ref": "#/definitions/ChoiceBase"
+                },
+                "updatedAt": {
+                    "description": "optional",
+                    "type": "string"
                 }
             }
         },
-        "camera.CapturedEventData": {
+        "CameraType": {
+            "type": "string",
+            "enum": [
+                "inside",
+                "outside"
+            ],
+            "x-enum-varnames": [
+                "InsideCamera",
+                "OutsideCamera"
+            ]
+        },
+        "CameraUpdateInput": {
             "type": "object",
             "properties": {
-                "ChannelName": {
-                    "type": "string"
+                "channelName": {
+                    "type": "string",
+                    "maxLength": 255
                 },
-                "EventComment": {
-                    "type": "string"
+                "channelToken": {
+                    "type": "string",
+                    "maxLength": 255
                 },
-                "EventDescription": {
-                    "type": "string"
+                "name": {
+                    "type": "string",
+                    "maxLength": 255
                 },
-                "EventId": {
-                    "type": "string"
-                },
-                "captured_time": {
-                    "type": "string"
+                "type": {
+                    "$ref": "#/definitions/CameraType"
                 }
             }
         },
-        "camfix.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "camfix.Response": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "camfix.SuccessResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                },
-                "user": {
-                    "$ref": "#/definitions/modelsuser.MacUser"
-                }
-            }
-        },
-        "camfix.UpdateCameraTypeRequest": {
+        "CarCreateInput": {
             "type": "object",
             "required": [
-                "type"
+                "carNumber"
             ],
             "properties": {
-                "type": {
+                "carNumber": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "isStaff": {
+                    "type": "boolean"
+                },
+                "ownerName": {
+                    "type": "string",
+                    "maxLength": 255
+                }
+            }
+        },
+        "CarMessageResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/CarResponse"
+                },
+                "message": {
                     "type": "string"
                 }
             }
         },
-        "modeloperator.Operator": {
+        "CarPaginatedResponse": {
             "type": "object",
+            "required": [
+                "limit",
+                "page",
+                "rows"
+            ],
             "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CarResponse"
+                    }
+                }
+            }
+        },
+        "CarParkType": {
+            "type": "string",
+            "enum": [
+                "P1",
+                "P2",
+                "P3",
+                "P4"
+            ],
+            "x-enum-varnames": [
+                "Park1",
+                "Park2",
+                "Park3",
+                "Park4"
+            ]
+        },
+        "CarResponse": {
+            "type": "object",
+            "required": [
+                "carNumber",
+                "createdAt",
+                "id",
+                "isStaff"
+            ],
+            "properties": {
+                "carNumber": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
-                "login_at": {
+                "isStaff": {
+                    "type": "boolean"
+                },
+                "ownerName": {
                     "type": "string"
                 },
-                "logout_at": {
+                "updatedAt": {
+                    "description": "optional, can be nil",
                     "type": "string"
-                },
-                "money": {
+                }
+            }
+        },
+        "CarSessionPaginatedResponse": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page",
+                "rows"
+            ],
+            "properties": {
+                "limit": {
                     "type": "integer"
                 },
-                "operator": {
-                    "type": "string"
+                "page": {
+                    "type": "integer"
                 },
-                "park": {
-                    "type": "string"
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CarSessionResponse"
+                    }
                 }
             }
         },
-        "modelscar.CarUpdate": {
+        "CarSessionResponse": {
             "type": "object",
+            "required": [
+                "carId",
+                "createdAt",
+                "currency",
+                "id",
+                "isPaid",
+                "status"
+            ],
             "properties": {
-                "reason": {
+                "cameraId": {
+                    "type": "integer"
+                },
+                "cameraToken": {
                     "type": "string"
                 },
-                "total_payment": {
-                    "type": "number"
-                }
-            }
-        },
-        "modelscar.Car_Model": {
-            "type": "object",
-            "properties": {
-                "ChannelId": {
+                "car": {
+                    "$ref": "#/definitions/CarResponse"
+                },
+                "carId": {
+                    "type": "integer"
+                },
+                "carPark": {
+                    "$ref": "#/definitions/ChoiceBase"
+                },
+                "createdAt": {
                     "type": "string"
                 },
-                "cameraid": {
-                    "type": "string"
-                },
-                "car_number": {
+                "currency": {
                     "type": "string"
                 },
                 "duration": {
-                    "type": "integer"
+                    "type": "number"
                 },
-                "end_time": {
+                "endTime": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
                 },
-                "image_url": {
+                "imageUrl": {
                     "type": "string"
                 },
-                "park_no": {
-                    "type": "string"
-                },
-                "paystatus": {
+                "isPaid": {
                     "type": "boolean"
                 },
                 "reason": {
                     "type": "string"
                 },
-                "start_time": {
+                "startTime": {
                     "type": "string"
                 },
                 "status": {
-                    "type": "string"
+                    "$ref": "#/definitions/ChoiceBase"
                 },
-                "total_payment": {
+                "totalAmount": {
                     "type": "number"
                 },
-                "user_id": {
+                "updatedAt": {
+                    "description": "optional, can be nil",
                     "type": "string"
                 }
             }
         },
-        "modelsuser.MacUser": {
+        "CarUpdateInput": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "integer"
+                "carNumber": {
+                    "type": "string",
+                    "maxLength": 255
                 },
-                "macpassword": {
+                "isStaff": {
+                    "type": "boolean"
+                },
+                "ownerName": {
+                    "type": "string",
+                    "maxLength": 255
+                }
+            }
+        },
+        "ChoiceBase": {
+            "type": "object",
+            "required": [
+                "label",
+                "value"
+            ],
+            "properties": {
+                "label": {
                     "type": "string"
                 },
-                "macusername": {
+                "value": {
                     "type": "string"
                 }
             }
         },
-        "modelsuser.RoleType": {
+        "CountResponse": {
+            "type": "object",
+            "required": [
+                "count"
+            ],
+            "properties": {
+                "count": {
+                    "type": "integer",
+                    "example": 12345
+                }
+            }
+        },
+        "ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string",
+                    "example": "Invalid request body"
+                }
+            }
+        },
+        "InternalServerErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string",
+                    "example": "Internal Server Error"
+                }
+            }
+        },
+        "LoginInput": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "carPark": {
+                    "$ref": "#/definitions/CarParkType"
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 150
+                },
+                "username": {
+                    "type": "string",
+                    "maxLength": 150
+                }
+            }
+        },
+        "LoginResponse": {
+            "type": "object",
+            "required": [
+                "access_token",
+                "role"
+            ],
+            "properties": {
+                "access_token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                },
+                "role": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/RoleType"
+                        }
+                    ],
+                    "example": "operator"
+                }
+            }
+        },
+        "MessagedResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "NotFoundResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string",
+                    "example": "Not found"
+                }
+            }
+        },
+        "PermissionDeniedResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string",
+                    "example": "Permission denied"
+                }
+            }
+        },
+        "RoleType": {
             "type": "string",
             "enum": [
                 "admin",
@@ -1899,180 +2380,249 @@
                 "AccountantRole"
             ]
         },
-        "modelsuser.User": {
-            "type": "object"
+        "TariffCreateInput": {
+            "type": "object",
+            "required": [
+                "duration",
+                "name",
+                "price_amount"
+            ],
+            "properties": {
+                "duration": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "price_amount": {
+                    "type": "number"
+                }
+            }
         },
-        "modelsuser.UserRes": {
+        "TariffMessageResponse": {
             "type": "object",
             "properties": {
-                "firstname": {
-                    "type": "string",
-                    "example": "John"
+                "data": {
+                    "$ref": "#/definitions/TariffResponse"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "TariffPaginatedResponse": {
+            "type": "object",
+            "required": [
+                "limit",
+                "page",
+                "rows"
+            ],
+            "properties": {
+                "limit": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "rows": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/TariffResponse"
+                    }
+                }
+            }
+        },
+        "TariffResponse": {
+            "type": "object",
+            "required": [
+                "PriceAmount",
+                "createdAt",
+                "currency",
+                "duration",
+                "id",
+                "isActive",
+                "name"
+            ],
+            "properties": {
+                "PriceAmount": {
+                    "type": "number"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "integer"
                 },
                 "id": {
-                    "type": "integer",
-                    "format": "int64",
-                    "example": 1
+                    "type": "integer"
                 },
                 "isActive": {
-                    "type": "boolean",
-                    "example": true
+                    "type": "boolean"
                 },
-                "lastname": {
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "optional, can be nil",
+                    "type": "string"
+                }
+            }
+        },
+        "TariffUpdateInput": {
+            "type": "object",
+            "properties": {
+                "duration": {
+                    "type": "integer"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "name": {
                     "type": "string",
-                    "example": "Doe"
+                    "maxLength": 255
                 },
-                "park_no": {
+                "price_amount": {
+                    "type": "number"
+                }
+            }
+        },
+        "UnauthorizedResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
                     "type": "string",
-                    "example": "P123"
-                },
-                "role": {
-                    "enum": [
-                        "admin",
-                        "operator",
-                        "accountant"
-                    ],
+                    "example": "Unauthorized - Invalid token"
+                }
+            }
+        },
+        "UserCreateInput": {
+            "type": "object",
+            "required": [
+                "fullName",
+                "password",
+                "role",
+                "username"
+            ],
+            "properties": {
+                "carPark": {
+                    "description": "optional",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/modelsuser.RoleType"
+                            "$ref": "#/definitions/CarParkType"
+                        }
+                    ]
+                },
+                "fullName": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 128,
+                    "minLength": 8,
+                    "example": "secret-word"
+                },
+                "role": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/RoleType"
                         }
                     ],
                     "example": "operator"
                 },
                 "username": {
                     "type": "string",
-                    "example": "johndoe"
+                    "maxLength": 150
                 }
             }
         },
-        "operator.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "error": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "operator.GetCarsResponse": {
-            "type": "object",
-            "properties": {
-                "cars": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/modelscar.Car_Model"
-                    }
-                },
-                "hasNext": {
-                    "type": "boolean"
-                },
-                "hasPrev": {
-                    "type": "boolean"
-                },
-                "limit": {
-                    "type": "integer"
-                },
-                "page": {
-                    "type": "integer"
-                },
-                "totalPages": {
-                    "type": "integer"
-                }
-            }
-        },
-        "realtime.UpdateRequest": {
-            "type": "object",
-            "properties": {
-                "parkno": {
-                    "type": "string"
-                },
-                "total_payment": {
-                    "type": "integer"
-                }
-            }
-        },
-        "resmodel.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "details": {
-                    "type": "string"
-                },
-                "error": {
-                    "type": "string"
-                }
-            }
-        },
-        "resmodel.Response": {
+        "UserMessageResponse": {
             "type": "object",
             "properties": {
                 "data": {
-                    "$ref": "#/definitions/modelscar.Car_Model"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/UserResponse"
+                        }
+                    ],
+                    "x-nullable": "true"
                 },
                 "message": {
                     "type": "string"
                 }
             }
         },
-        "tarif.Tarif": {
+        "UserPaginatedResponse": {
             "type": "object",
+            "required": [
+                "limit",
+                "page",
+                "rows"
+            ],
             "properties": {
-                "end_time": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "plate": {
-                    "type": "string"
-                },
-                "price": {
-                    "type": "integer"
-                },
-                "start_time": {
-                    "type": "string"
-                }
-            }
-        },
-        "tarifcontrol.PaginatedResponse": {
-            "type": "object",
-            "properties": {
-                "data": {},
-                "hasNext": {
-                    "type": "boolean"
-                },
-                "hasPrev": {
-                    "type": "boolean"
-                },
                 "limit": {
+                    "description": "items per page",
                     "type": "integer"
                 },
                 "page": {
+                    "description": "current page",
                     "type": "integer"
                 },
-                "totalPages": {
-                    "type": "integer"
-                },
-                "total_price": {
-                    "type": "integer"
+                "rows": {
+                    "description": "generic slice of any type",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/UserResponse"
+                    }
                 }
             }
         },
-        "usercontrol.LoginInput": {
+        "UserResponse": {
             "type": "object",
             "required": [
-                "password",
+                "createdAt",
+                "id",
+                "isActive",
+                "role",
                 "username"
             ],
             "properties": {
-                "parkno": {
+                "carPark": {
+                    "description": "optional",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/ChoiceBase"
+                        }
+                    ]
+                },
+                "createdAt": {
                     "type": "string"
                 },
-                "password": {
+                "fullName": {
+                    "description": "required in TS, can be empty",
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "role": {
+                    "$ref": "#/definitions/ChoiceBase"
+                },
+                "updatedAt": {
+                    "description": "optional, can be nil",
                     "type": "string"
                 },
                 "username": {
@@ -2080,18 +2630,143 @@
                 }
             }
         },
-        "zreport.ZReport": {
+        "UserSessionExtendedPaginatedResponse": {
             "type": "object",
+            "required": [
+                "limit",
+                "page",
+                "rows"
+            ],
             "properties": {
-                "parkno": {
-                    "type": "string"
-                },
-                "total_payment": {
+                "limit": {
+                    "description": "items per page",
                     "type": "integer"
                 },
-                "username": {
-                    "type": "string"
+                "page": {
+                    "description": "current page",
+                    "type": "integer"
+                },
+                "rows": {
+                    "description": "generic slice of any type",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/UserSessionExtendedResponse"
+                    }
                 }
+            }
+        },
+        "UserSessionExtendedResponse": {
+            "type": "object",
+            "required": [
+                "createdAt",
+                "expireAt",
+                "id"
+            ],
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "expireAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "550e8400-e29b-41d4-a716-446655440000"
+                },
+                "ipAddress": {
+                    "type": "string",
+                    "example": "192.168.1.1"
+                },
+                "macPassword": {
+                    "type": "string",
+                    "example": "mac-password"
+                },
+                "macUsername": {
+                    "type": "string",
+                    "example": "mac-username"
+                },
+                "revokedAt": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/UserResponse"
+                },
+                "userAgent": {
+                    "type": "string",
+                    "example": "Mozilla/5.0"
+                }
+            }
+        },
+        "UserUpdateInput": {
+            "type": "object",
+            "properties": {
+                "carPark": {
+                    "description": "optional",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/CarParkType"
+                        }
+                    ]
+                },
+                "fullName": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 128,
+                    "minLength": 8,
+                    "example": "secret-word"
+                },
+                "role": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/RoleType"
+                        }
+                    ],
+                    "example": "operator"
+                },
+                "username": {
+                    "type": "string",
+                    "maxLength": 150
+                }
+            }
+        },
+        "ValidationErrorResponse": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "type": "string",
+                    "example": "Validation error"
+                },
+                "errors": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "example": {
+                        "fieldName": "this field is required"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        },
+        "OAuth2Password": {
+            "type": "oauth2",
+            "flow": "password",
+            "tokenUrl": "/api/v1/auth/login",
+            "scopes": {
+                "read": "Grants read access",
+                "write": "Grants write access"
             }
         }
     }
