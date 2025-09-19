@@ -1,7 +1,7 @@
 package controllers
 
-import (
-	"backend/validator"
+import ( 
+    "fmt"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -68,6 +68,8 @@ func CountCarSessionsApi(c *fiber.Ctx, db *gorm.DB) error {
 	})
 }
 
+
+
 // CarSessionEventEntryApi 	godoc
 // @Tags 			Cars
 // @Param   		requestBody body map[string]interface{} true "Request body"
@@ -75,13 +77,52 @@ func CountCarSessionsApi(c *fiber.Ctx, db *gorm.DB) error {
 // @Failure 		500 {object} core.InternalServerErrorResponse "detail: Internal Server Error"
 // @Router 			/api/v1/car-session/event/entry/ [post]
 func CarSessionEventEntryApi(c *fiber.Ctx, db *gorm.DB) error {
-	objIn, err := validator.ParseBody[map[string]interface{}](c)
-	if err != nil {
-		return err
+	// objIn, err := validator.ParseBody[map[string]interface{}](c)
+	// if err != nil {
+	// 	return err
+	// }
+
+	
+	var objIn map[string]interface{}
+	if err := c.BodyParser(&objIn); err != nil {
+		return fiber.ErrInternalServerError
 	}
-	println(objIn)
+	// if err != nil {
+	// 	return err
+	// }
+	println(objIn) 
 	return c.Status(201).JSON(schema.CarSessionMessageResponse{
 		Message: "Event entry created",
+		Data:    nil,
+	})
+}
+
+// CarSessionEventExitApi 	godoc
+// @Tags 			Cars
+// @Param   		requestBody body map[string]interface{} true "Request body"
+// @Success 		200 {object} schema.CarSessionMessageResponse "count: 12345"
+// @Failure 		500 {object} core.InternalServerErrorResponse "detail: Internal Server Error"
+// @Router 			/api/v1/car-session/event/exit/ [post]
+func CarSessionEventExitApi(c *fiber.Ctx, db *gorm.DB) error {
+	// objIn, err := validator.ParseBody[map[string]interface{}](c)
+	// if err != nil {
+	// 	return err
+	// }
+	// println(objIn)
+ 
+	var objIn map[string]interface{}
+	if err := c.BodyParser(&objIn); err != nil {
+		return fiber.ErrInternalServerError
+	}
+	// if err != nil {
+	// 	return err
+	// }
+	println(objIn)  
+	
+    fmt.Printf("Received body: %+v\n", objIn) // ✅ Proper printing
+
+	return c.Status(201).JSON(schema.CarSessionMessageResponse{
+		Message: "Event exit created",
 		Data:    nil,
 	})
 }

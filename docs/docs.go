@@ -649,7 +649,6 @@ const docTemplate = `{
                         ]
                     }
                 ],
-                "description": "Retrieves a count of cars",
                 "consumes": [
                     "application/json"
                 ],
@@ -659,7 +658,6 @@ const docTemplate = `{
                 "tags": [
                     "Cars"
                 ],
-                "summary": "Count returns total cars count",
                 "responses": {
                     "200": {
                         "description": "count: 12345",
@@ -677,6 +675,72 @@ const docTemplate = `{
                         "description": "detail: Permission denied",
                         "schema": {
                             "$ref": "#/definitions/PermissionDeniedResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car-session/event/entry/": {
+            "post": {
+                "tags": [
+                    "Cars"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "count: 12345",
+                        "schema": {
+                            "$ref": "#/definitions/CarSessionMessageResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "detail: Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/InternalServerErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car-session/event/exit/": {
+            "post": {
+                "tags": [
+                    "Cars"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "requestBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "count: 12345",
+                        "schema": {
+                            "$ref": "#/definitions/CarSessionMessageResponse"
                         }
                     },
                     "500": {
@@ -2152,6 +2216,17 @@ const docTemplate = `{
                 },
                 "updatedAt": {
                     "description": "optional, can be nil",
+                    "type": "string"
+                }
+            }
+        },
+        "CarSessionMessageResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/CarSessionResponse"
+                },
+                "message": {
                     "type": "string"
                 }
             }

@@ -1,15 +1,15 @@
--- Create "cameras" table
-CREATE TABLE "cameras" (
+-- Create "cars" table
+CREATE TABLE "cars" (
   "id" bigserial NOT NULL,
-  "name" character varying(255) NOT NULL,
-  "type" character varying(50) NOT NULL,
+  "car_number" character varying(255) NOT NULL,
+  "owner_name" character varying(255) NULL,
+  "is_staff" boolean NULL DEFAULT false,
   "created_at" timestamptz NOT NULL,
   "updated_at" timestamptz NULL,
-  "deleted_at" timestamptz NULL,
   PRIMARY KEY ("id")
 );
--- Create index "idx_cameras_deleted_at" to table: "cameras"
-CREATE INDEX "idx_cameras_deleted_at" ON "cameras" ("deleted_at");
+-- Create index "idx_cars_car_number" to table: "cars"
+CREATE UNIQUE INDEX "idx_cars_car_number" ON "cars" ("car_number");
 -- Create "mac_users" table
 CREATE TABLE "mac_users" (
   "id" bigserial NOT NULL,
@@ -32,40 +32,39 @@ CREATE TABLE "tariffs" (
 );
 -- Create index "idx_tariffs_duration" to table: "tariffs"
 CREATE UNIQUE INDEX "idx_tariffs_duration" ON "tariffs" ("duration");
--- Create "cars" table
-CREATE TABLE "cars" (
-  "id" bigserial NOT NULL,
-  "car_number" character varying(255) NOT NULL,
-  "owner_name" character varying(255) NULL,
-  "is_staff" boolean NULL DEFAULT false,
-  "created_at" timestamptz NOT NULL,
-  "updated_at" timestamptz NULL,
-  PRIMARY KEY ("id")
-);
--- Create index "idx_cars_car_number" to table: "cars"
-CREATE UNIQUE INDEX "idx_cars_car_number" ON "cars" ("car_number");
 -- Create "car_sessions" table
 CREATE TABLE "car_sessions" (
   "id" bigserial NOT NULL,
-  "start_time" timestamptz NULL,
-  "end_time" timestamptz NULL,
-  "total_payment_amount" numeric(20,8) NULL DEFAULT 0.0,
   "currency" character varying(20) NOT NULL,
   "status" character varying(100) NULL,
   "reason" text NULL,
-  "image_url" text NULL,
+  "is_paid" boolean NOT NULL DEFAULT false,
+  "car_id" bigint NOT NULL,
+  "total_payment_amount" numeric(20,8) NULL DEFAULT 0.0,
+  "start_time" timestamptz NULL,
+  "end_time" timestamptz NULL,
   "car_park" character varying(100) NULL,
   "duration" numeric(20,8) NULL DEFAULT 0.0,
-  "is_paid" boolean NOT NULL DEFAULT false,
-  "camera_token" text NULL,
-  "car_id" bigint NOT NULL,
-  "camera_id" bigint NOT NULL,
   "created_at" timestamptz NOT NULL,
   "updated_at" timestamptz NULL,
+  "invalidated_at" timestamptz NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_car_sessions_camera" FOREIGN KEY ("camera_id") REFERENCES "cameras" ("id") ON UPDATE CASCADE ON DELETE RESTRICT,
   CONSTRAINT "fk_car_sessions_car" FOREIGN KEY ("car_id") REFERENCES "cars" ("id") ON UPDATE CASCADE ON DELETE RESTRICT
 );
+-- Create "cameras" table
+CREATE TABLE "cameras" (
+  "id" bigserial NOT NULL,
+  "name" character varying(255) NOT NULL,
+  "type" character varying(50) NOT NULL,
+  "channel_name" character varying(255) NULL,
+  "channel_token" character varying(255) NULL,
+  "created_at" timestamptz NOT NULL,
+  "updated_at" timestamptz NULL,
+  "deleted_at" timestamptz NULL,
+  PRIMARY KEY ("id")
+);
+-- Create index "idx_cameras_deleted_at" to table: "cameras"
+CREATE INDEX "idx_cameras_deleted_at" ON "cameras" ("deleted_at");
 -- Create "car_subscriptions" table
 CREATE TABLE "car_subscriptions" (
   "id" bigserial NOT NULL,

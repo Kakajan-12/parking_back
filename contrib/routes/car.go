@@ -30,4 +30,6 @@ func CarRoute(app fiber.Router, db *gorm.DB) {
 	carGroup.Patch("/:id/update/", func(c *fiber.Ctx) error {
 		return controllers.UpdateCarApi(c, db)
 	}).Name("car-update")
+
+	
 }

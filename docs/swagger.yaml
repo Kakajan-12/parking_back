@@ -158,6 +158,13 @@ definitions:
     - id
     - isStaff
     type: object
+  CarSessionMessageResponse:
+    properties:
+      data:
+        $ref: '#/definitions/CarSessionResponse'
+      message:
+        type: string
+    type: object
   CarSessionPaginatedResponse:
     properties:
       limit:
@@ -975,7 +982,6 @@ paths:
     get:
       consumes:
       - application/json
-      description: Retrieves a count of cars
       produces:
       - application/json
       responses:
@@ -998,7 +1004,48 @@ paths:
       security:
       - OAuth2Password:
         - ""
-      summary: Count returns total cars count
+      tags:
+      - Cars
+  /api/v1/car-session/event/entry/:
+    post:
+      parameters:
+      - description: Request body
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      responses:
+        "200":
+          description: 'count: 12345'
+          schema:
+            $ref: '#/definitions/CarSessionMessageResponse'
+        "500":
+          description: 'detail: Internal Server Error'
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+      tags:
+      - Cars
+  /api/v1/car-session/event/exit/:
+    post:
+      parameters:
+      - description: Request body
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      responses:
+        "200":
+          description: 'count: 12345'
+          schema:
+            $ref: '#/definitions/CarSessionMessageResponse'
+        "500":
+          description: 'detail: Internal Server Error'
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
       tags:
       - Cars
   /api/v1/car/:

@@ -139,13 +139,10 @@ func ToCarSessionResponse(value models.CarSession) CarSessionResponse {
 		EndTime:     value.EndTime,
 		TotalAmount: value.TotalAmount,
 		Status:      StatusToChoice(string(value.Status)),
-		Reason:      value.Reason,
-		ImageUrl:    value.ImageUrl,
+		Reason:      value.Reason, 
 		CarPark:     carPark,
 		Duration:    value.Duration,
-		IsPaid:      value.IsPaid,
-		CameraToken: *value.CameraToken,
-		CameraID:    value.CameraID,
+		IsPaid:      value.IsPaid, 
 		CarID:       value.CarID,
 		Car:         &car,
 	}
@@ -157,4 +154,22 @@ func ToCarSessionResponseList(rows []models.CarSession) []CarSessionResponse {
 		responses[i] = ToCarSessionResponse(c)
 	}
 	return responses
+}
+
+type CapturedEventData struct {
+	EventID          *string    `json:"EventId"`
+	EventDescription *string    `json:"EventDescription"`
+	EventComment     *string    `json:"EventComment"`
+	ChannelName      *string    `json:"ChannelName"`
+	CapturedTime     *time.Time `json:"captured_time"`
+}
+
+
+type CapturedEventDataE struct {
+	EventID          *string    `json:"EventId"`
+	EventDescription *string    `json:"EventDescription"`
+	EventComment     *string    `json:"EventComment"`
+	ChannelName      *string    `json:"ChannelName"`
+	CapturedTime     *time.Time `json:"captured_time"`
+	ChannelId        *string    `json:"ChannelId"`
 }

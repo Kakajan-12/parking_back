@@ -67,7 +67,6 @@ type CarSession struct {
 	Status      string  `gorm:"column:status;size:100"`
 	Reason      string  `gorm:"column:reason"`
 	IsPaid      bool    `gorm:"column:is_paid;not null;default:false"`
-	CameraToken *string `gorm:"column:camera_token;size:255"`
 	CarID       int64   `gorm:"column:car_id;not null;"`
 	Car         Car     `gorm:"foreignKey:CarID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
 
@@ -88,13 +87,14 @@ func (CarSession) TableName() string {
 
 type CarSessionEvent struct {
 	ID        int64                  `gorm:"primaryKey;autoIncrement"`
-	EventType CarSessionEventType    `gorm:"column:event_type;not null;size-20;"`
+	EventType CarSessionEventType    `gorm:"column:event_type;not null;size-20"`
 	ExtraData map[string]interface{} `gorm:"column:extra_data;type:jsonb"`
 	ImageUrl  *string                `gorm:"column:image_url"`
 
 	CarSessionID int64      `gorm:"column:car_session_id;primaryKey;autoIncrement"`
 	CarSession   CarSession `gorm:"foreignKey:CarSessionID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 
+	CameraToken *string `gorm:"column:camera_token;size:255"`
 	CameraID int64  `gorm:"column:camera_id;not null;"`
 	Camera   Camera `gorm:"foreignKey:CameraID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT"`
 

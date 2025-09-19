@@ -16,12 +16,16 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
 
+	"github.com/gofiber/websocket/v2"
+	
 	"backend/config"
 	"backend/core"
 	"backend/database"
 	_ "backend/docs"
 
 	"github.com/gofiber/swagger"
+
+	"backend/contrib/controllers"
 )
 
 type (
@@ -125,6 +129,7 @@ func main() {
 			}, ","),
 		},
 	))
+	go controllers.HandleMessages()
 
 	app.Static("/swagger/swagger.yaml", "./docs/swagger.yaml")
 
@@ -141,7 +146,7 @@ func main() {
 		OAuth2RedirectUrl: baseUrl + "/swagger/oauth2-redirect.html",
 	}))
 	routes.ApiV1Route(app, db)
-
+	app.Get("/ws/car-session/", websocket.New(controllers.CarSessionWebsocket))
 	//go operator.HandleMessages()
 	//go imagetoplate.WatchDirectory("image", database.DB)
 	//routes.InitAdminRoute(app)
